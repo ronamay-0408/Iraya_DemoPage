@@ -1,0 +1,172 @@
+body{
+    font-family: 'Exo 2';
+  }
+  .container-nav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 30px;
+    flex-wrap: inherit;
+    align-items: center;
+  }
+  .navbar-brand {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
+  }
+  .navbar-light .navbar-nav .nav-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: black;
+  }
+  .nav-item{
+    padding-right: 8px;
+  }
+  svg.svg-inline--fa.fa-chevron-down {
+    font-size: 10px;
+    padding: 0 5px;
+  }
+  .navbar-light .navbar-toggler {
+    color: #F37029;
+  }
+  .nav-item.active a {
+    color:  #F37029 !important; /* Change to your preferred color */
+    font-weight: bold; /* Make text bold */
+  }
+  
+  .container{
+    justify-content: center; /* Centers horizontally */
+    align-items: center;
+    display: flex;
+    gap: 60px;
+  }
+  .demo{
+    text-align: center;
+    align-items: center;
+    padding: 0 30px;
+    height: 55%;
+    /* margin-top: 25rem; */
+    
+  }
+  .details{
+    padding: 25px 0;
+  }
+  .details h4{
+    width: 23em;
+    word-wrap: break-word;
+    font-size: 20px;
+  }
+  .details span{
+    font-size: 20px;
+    color: #F37029;
+  }
+  .details .blue{
+    color: #2D918C;
+  }
+
+
+.demo1 a{
+    text-decoration: none;
+    background-color: #F37029;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.demo2 a{
+    text-decoration: none;
+    background-color: #F37029;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.title{
+padding: 20px 80px;
+}
+
+img.DA-logo2 {
+    padding: 0 10px;
+}
+
+.soon{
+    justify-content: center;
+    padding-top: 40px;
+    display: flex;
+    gap: 60px;
+}
+
+.comingsoon-container{
+    background-color: #D9D9D9;
+    padding: 50px 140px;
+    border-radius: 13px;
+    margin-bottom: 2rem;
+}
+
+.demo3 a{
+    text-decoration: none;
+    background-color: #D9D9D9;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.demo4 a{
+    margin-top: 4rem;
+    text-decoration: none;
+    background-color: #D9D9D9;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+@media (max-width: 990px){
+    .container{
+        flex-wrap: wrap;
+    }
+
+    .demo{
+      padding: 0;
+    }
+    .soon{
+        flex-wrap: wrap;
+    }
+    .demo1{
+        width: 85%;
+    }
+    .demo2{
+        width: 85%;
+    }
+}
+
+@media (max-width: 600px){
+    .title {
+        padding: 20px;
+    }
+    .title h3{
+        font-size: 19px;
+        text-align: center;
+    }
+    .details h4 {
+        width: 19em;
+        word-wrap: break-word;
+    }
+    img.DA-logo1 {
+        width: 60px;
+    }
+    img.DA-logo2 {
+        width: 16em;
+    }
+    img.Elas-logo {
+        width: 20em;
+    }
+    .comingsoon-container {
+        padding: 50px 90px;
+    }
+}
