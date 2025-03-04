@@ -29,7 +29,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#home">Dashboard</a></li>
                         <li class="nav-item"><a class="nav-link" href="#products">Products <i class="fa-solid fa-chevron-down"></i></a></li>
                         <li class="nav-item active"><a class="nav-link active" href="#Demo">Demo</a></li>
                         <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
