@@ -59,7 +59,8 @@
                                 <div class="mb-3">
                                     <label for="productImage" class="form-label">Upload Image</label>
                                     <div class="image-upload-container" id="imageUploadContainer">
-                                        <img id="previewImage" src="https://via.placeholder.com/100?text=Upload" alt="Upload Icon">
+                                        <i class="bi bi-image" id="uploadIcon"></i> <!-- Bootstrap Icon -->
+                                        <img id="previewImage" src="" alt="Uploaded Image">
                                         <input type="file" id="productImage" accept="image/*" required onchange="previewSelectedImage(event)">
                                     </div>
                                 </div>
@@ -143,14 +144,16 @@
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        document.getElementById('previewImage').src = e.target.result;
-                        document.getElementById('previewImage').style.display = "block"; // Show the uploaded image
-                        document.getElementById('uploadIcon').style.display = "none"; // Hide the icon
+                        const previewImage = document.getElementById('previewImage');
+                        const uploadIcon = document.getElementById('uploadIcon');
+
+                        previewImage.src = e.target.result;
+                        previewImage.style.display = "block"; // Show image
+                        uploadIcon.style.display = "none"; // Hide icon
                     };
                     reader.readAsDataURL(file);
                 }
             }
         </script>
-
     </body>
 </html>
