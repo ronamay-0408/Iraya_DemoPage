@@ -364,5 +364,26 @@
                 document.getElementById("editProductDescription").value = quillEdit.root.innerHTML;
             };
         </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                document.querySelectorAll(".edit-product-btn").forEach(button => {
+                    button.addEventListener("click", function () {
+                        let productId = this.dataset.id;
+                        let productImage = this.dataset.image;
+                        let productDescription = this.dataset.description;
+
+                        // Populate modal fields
+                        document.getElementById("editProductId").value = productId;
+                        document.getElementById("editPreviewImage").src = "/" + productImage;
+                        document.getElementById("editProductDescription").value = productDescription;
+
+                        // Update form action dynamically
+                        let form = document.getElementById("editProductForm");
+                        form.action = `/products/${productId}`;
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

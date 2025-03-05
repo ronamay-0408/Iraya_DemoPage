@@ -47,4 +47,36 @@ class ProductController extends Controller
         $products = Product::latest()->get(); // Fetch all products, latest first
         return view('admin.upload', compact('products')); // Pass data to upload.blade.php
     }
+
+    // Function to update a product
+    public function update(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'productImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'description' => 'required|string|max:255',
+        ]);
+
+        // Find the product
+        $product = Product::findOrFail($id);
+
+        // Handle image upload (if new image is uploaded)
+        if ($request->hasFile('productImage')) {
+            $image = $request->file('productImage');
+            $imageName = time() . '_cropped_' . $image->getClientOriginalName();
+            
+            // Save cropped image to public/img folder
+            $image->move(public_path('img'), $imageName);
+            
+            $product->prod_img = 'img/' . $imageName;
+        }
+
+        // Update description
+        $product->description = $request->description;
+        $product->save();
+
+        Alert::success('Success!', 'Product updated successfully.')->autoClose(3000);
+
+        return redirect()->route('upload.page');
+    }
 }

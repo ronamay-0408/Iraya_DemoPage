@@ -19,7 +19,6 @@ Route::get('/', function () {
 
 Route::get('/admin/upload', [ProductController::class, 'index'])->name('upload.page');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-Route::put('/products/update/{id}', [ProductController::class, 'update'])->name('product.update');
-
+Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
 
