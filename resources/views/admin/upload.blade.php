@@ -108,12 +108,12 @@
 
                                 <!-- Product Image Upload -->
                                 <div class="mb-3">
-                                    <label class="form-label">Upload New Image</label>
+                                    <label class="form-label">Upload New Image (Optional)</label>
                                     <div class="image-upload-container">
                                         <i class="bi bi-image" id="editUploadIcon"></i>
-                                        <!-- Display the existing product image -->
+                                        <!-- Display existing product image -->
                                         <img id="editPreviewImage" src="" alt="Uploaded Image" style="max-width: 100%; height: auto; display: block;">
-                                        <input type="file" id="editProductImage" name="productImage" accept="image/*" required>
+                                        <input type="file" id="editProductImage" name="productImage" accept="image/*">
                                         <input type="hidden" name="croppedImage" id="editCroppedImage">
                                     </div>
                                 </div>
@@ -386,12 +386,23 @@
                         document.getElementById("editPreviewImage").src = "/" + productImage;
                         document.getElementById("editProductDescription").value = productDescription;
 
-                        // Update form action dynamically
-                        let form = document.getElementById("editProductForm");
-                        form.action = `/products/${productId}`;
+                        // Reset file input (clear previous selections)
+                        document.getElementById("editProductImage").value = "";
                     });
+                });
+
+                // Prevent empty image field from being sent in the form
+                document.getElementById("editProductForm").addEventListener("submit", function (event) {
+                    let imageInput = document.getElementById("editProductImage");
+
+                    // If no new image is selected, remove the `name` attribute so Laravel ignores it
+                    if (imageInput.files.length === 0) {
+                        imageInput.removeAttribute("name");
+                    }
                 });
             });
         </script>
+
+
     </body>
 </html>

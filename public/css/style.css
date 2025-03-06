@@ -35,7 +35,7 @@ body{
   
   .container{
     justify-content: center; /* Centers horizontally */
-    align-items: center;
+    /* align-items: center; */
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
