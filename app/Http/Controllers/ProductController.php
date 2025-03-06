@@ -48,6 +48,12 @@ class ProductController extends Controller
         return view('admin.upload', compact('products')); // Pass data to upload.blade.php
     }
 
+    public function showWelcome()
+    {
+        $products = Product::latest()->get(); // Fetch all products
+        return view('welcome', compact('products')); // Pass products to welcome.blade.php
+    }
+
     // Function to update a product
     public function update(Request $request, $id)
     {

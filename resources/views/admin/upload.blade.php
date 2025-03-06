@@ -16,10 +16,6 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        
-        <!-- Add Cropper.js CDN -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         <link href='https://fonts.googleapis.com/css?family=Exo 2' rel='stylesheet'>
@@ -221,6 +217,10 @@
             }
         </script>
 
+        <!-- Add Cropper.js CDN -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+        
         <!--CROP IMAGE JS--->
         <script>
             let cropper;
@@ -249,10 +249,18 @@
                         if (cropper) cropper.destroy();
 
                         // Initialize Cropper
-                        cropper = new Cropper(cropperImage, {
-                            aspectRatio: 400 / 60,
-                            viewMode: 2,
-                            autoCropArea: 1
+                        document.getElementById('cropperModal').addEventListener('shown.bs.modal', function () {
+                            if (cropper) cropper.destroy(); // Destroy existing instance
+
+                            // Initialize Cropper with a larger display area
+                            cropper = new Cropper(cropperImage, {
+                                aspectRatio: 400 / 60,
+                                viewMode: 2,
+                                autoCropArea: 1,
+                                zoomable: true,  // Allow zooming
+                                scalable: true,  // Allow scaling
+                                movable: true    // Allow moving the image
+                            });
                         });
 
                         // Store the current input field (ADD or EDIT)

@@ -48,30 +48,23 @@
             <h3>Interactive Iraya Energies Products Demos</h3>
             <hr>
         </div>
+        <!-- Updated Product List -->
         <div class="container">
-            <div class="demo1">
-                <div class="title-img">
-                    <img src="{{ asset('img/DA-icon logo 1.png') }}" alt="" class="DA-logo1">
-                    <img src="{{ asset('img/Data Atelier logo 1.png') }}" alt="" class="DA-logo2">
+            @foreach ($products->reverse() as $product) 
+                <div class="demo product-item" data-id="{{ $product->id }}" data-description="{{ $product->description }}" data-image="{{ asset($product->prod_img) }}">
+                    <div class="title-img">
+                        <img src="{{ asset($product->prod_img) }}" alt="Product Image" class="product-img">
+                    </div>
+                    <div class="details">
+                        <h4>{!! $product->description !!}</h4>
+                    </div>
+                    <a href="#" class="view-demo">View Demo</a>
+                    <button class="edit-btn btn btn-warning" style="display: none;">Edit</button>
                 </div>
-                <div class="details">
-                    <h4>Transforming energy data for <span>Sustainability</span>, powered by <span class="blue">Artificial Intelligence</span></h4>
-                </div>
-                <a href="#">View Demo</a>
-            </div>
-
-            <div class="demo2">
-                <div class="title-img-elas">
-                    <img src="{{ asset('img/elasticdocstm logo 1.png') }}" alt="" class="Elas-logo">
-                </div>
-                <div class="details">
-                    <h4>The <span>AI Solution</span> for <span class="blue">Geoscience, Engineering,<br> and Energy Data</span></h4>
-                </div>
-                <a href="#">View Demo</a>
-            </div>
+            @endforeach
         </div>
 
-        <div class="soon">
+        <!-- <div class="soon">
             <div class="demo3">
                 <div class="comingsoon-container">
                     <h3>COMING SOON</h3>
@@ -85,7 +78,7 @@
                 </div>
                 <a href="#">View Demo</a>
             </div>
-        </div>
+        </div> -->
             
         <!-- Projects-->
 
