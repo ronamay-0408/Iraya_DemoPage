@@ -17,7 +17,7 @@
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
-                <a href="/">
+                <a>
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
             </div>
@@ -27,4 +27,5 @@
             </div>
         </div>
     </body>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </html>

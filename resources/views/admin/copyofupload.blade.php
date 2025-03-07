@@ -21,24 +21,8 @@
         <link href='https://fonts.googleapis.com/css?family=Exo 2' rel='stylesheet'>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
-    <header>
-        <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-            <div class="container-nav">
-                <a class="navbar-brand" href="#page-top"><img src="{{ asset('img/admin-system-logo.png') }}" alt=""></a>
-                <div class="profile" id="profileDropdown">
-                    <img src="{{ asset('img/profile.png') }}" alt="Profile">
-                    <div class="dropdown-menu" id="dropdownMenu">
-                        <h4>Sam Houston</h4>
-                        <hr style="margin: 0;">
-                        <a href="#">Account</a>
-                        <a href="/">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <hr style="margin: 0;">
-    </header>
+    
+    @include('layouts.custom-nav')
     <body id="page-top">
 
         <div class="add-form">
@@ -111,6 +95,7 @@
                 <a href="#">View Demo</a>
             </div>
         </div>
+
             
         <!-- Projects-->
 
@@ -125,18 +110,6 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-        <script>
-            $(document).ready(function(){
-                $("#profileDropdown").click(function(event){
-                    event.stopPropagation();
-                    $("#dropdownMenu").toggle();
-                });
-
-                $(document).click(function(){
-                    $("#dropdownMenu").hide();
-                });
-            });
-        </script>
         <script>
             function previewSelectedImage(event) {
                 const file = event.target.files[0];
