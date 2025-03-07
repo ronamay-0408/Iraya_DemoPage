@@ -21,7 +21,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-@include('layouts.custom-nav')  
+@include('layouts.nav-custom')  
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <a href="{{ route('admin') }}" class="btn text-white fw-bold bg-[#F37029] hover:bg-[#FCB166] focus:bg-[#F37029] active:bg-[#F37029]">

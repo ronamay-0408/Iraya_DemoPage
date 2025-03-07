@@ -10,7 +10,7 @@ Route::get('/', [ProductController::class, 'showWelcome']);
 
 Route::get('/admin', [ProductController::class, 'index'])
     ->middleware(['auth', 'verified'])
-    ->name('upload.page');
+    ->name('admin'); 
 
 // Route::get('/admin/upload', [ProductController::class, 'index'])->name('upload.page');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
@@ -39,3 +39,9 @@ Route::get('/login', function() {
     }
     return view('auth.login');
 })->name('login');
+
+// Log out
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/login'); // Redirect to login after logout
+})->name('logout');

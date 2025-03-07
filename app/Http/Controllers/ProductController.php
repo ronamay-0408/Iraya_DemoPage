@@ -38,7 +38,7 @@ class ProductController extends Controller
 
         Alert::success('Success!', 'Product added successfully.')->autoClose(3000); // SweetAlert with auto-close
 
-        return redirect()->route('upload.page'); // Redirect to upload.blade.php
+        return redirect()->route('admin'); // Redirect to upload.blade.php
     }
 
     // Function to get all products
@@ -83,6 +83,6 @@ class ProductController extends Controller
 
         Alert::success('Success!', 'Product updated successfully.')->autoClose(3000);
 
-        return redirect()->route('upload.page');
+        return redirect()->route('admin');
     }
 }
