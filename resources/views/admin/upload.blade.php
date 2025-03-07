@@ -36,7 +36,7 @@
                         <h4>Sam Houston</h4>
                         <hr style="margin: 0;">
                         <a href="#">Account</a>
-                        <a href="/">Logout</a>
+                        <a href="#">Logout</a>
                     </div>
                 </div>
             </div>

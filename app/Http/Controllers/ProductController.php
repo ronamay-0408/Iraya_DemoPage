@@ -44,8 +44,8 @@ class ProductController extends Controller
     // Function to get all products
     public function index()
     {
-        $products = Product::latest()->get(); // Fetch all products, latest first
-        return view('admin.upload', compact('products')); // Pass data to upload.blade.php
+        $products = Product::latest()->get(); // Fetch all products
+        return view('admin.upload', compact('products')); // Pass data to the Blade view
     }
 
     public function showWelcome()

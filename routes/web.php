@@ -8,27 +8,17 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [ProductController::class, 'showWelcome']);
 
-// Route::get('/admin/upload', function () {
-//     return view('admin.upload');
-// });
+Route::get('/admin', [ProductController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('upload.page');
 
-// Route::get('/admin/upload', function () {
-//     return view('admin.upload');
-// })->name('upload.page');
-
-Route::get('/admin/upload', [ProductController::class, 'index'])->name('upload.page');
+// Route::get('/admin/upload', [ProductController::class, 'index'])->name('upload.page');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
 
-
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/admin', function () {
-    return view('admin.copyofupload');
-})->middleware(['auth', 'verified'])->name('admin');
+// Route::get('/admin', function () {
+//     return view('admin.copyofupload');
+// })->middleware(['auth', 'verified'])->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,10 +26,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 require __DIR__.'/auth.php';
-
-Route::get('/admin/upload', function () {
-    return view('admin.upload');
-});
 
 // Registration is currently blocked 
 Route::get('/register', function () {
