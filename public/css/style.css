@@ -46,7 +46,10 @@ body{
     padding: 20px 30px;
     height: 55%;
     /* margin-top: 25rem; */
-    
+  }
+
+  .title-img{
+    padding: 5px 0px;
   }
   .details{
     padding: 25px 0;

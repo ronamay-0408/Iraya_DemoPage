@@ -31,9 +31,7 @@
 
     <body id="page-top">
         <div class="add-form">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
-                ADD PRODUCT
-            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">ADD PRODUCT</button>
             <!-- ADD PRODUCT MODAL -->
             <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
                 <div class="modal-dialog custom-modal-width">
@@ -63,6 +61,12 @@
                                     <textarea name="description" id="productDescription" class="form-control" hidden></textarea>
                                 </div>
 
+                                <!-- Product Link Field -->
+                                <div class="mb-3">
+                                    <label for="productLink" class="form-label">Product Link</label>
+                                    <input type="url" name="link" id="productLink" class="form-control" placeholder="Enter product link" required>
+                                </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-success">Upload</button>
@@ -75,7 +79,6 @@
 
             <!-- EDIT PRODUCT BUTTON -->
             <button id="editModeBtn">EDIT PRODUCT</button>
-
             <!-- EDIT PRODUCT MODAL -->
             <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
                 <div class="modal-dialog custom-modal-width">
@@ -107,6 +110,13 @@
                                     <div id="editEditor" style="height: 150px;"></div>
                                     <textarea name="description" id="editProductDescription" class="form-control" hidden></textarea>
                                 </div>
+                                
+                                <!-- Product Link Field -->
+                                <div class="mb-3">
+                                    <label for="editProductLink" class="form-label">Edit Product Link</label>
+                                    <input type="url" name="link" id="editProductLink" class="form-control">
+                                </div>
+
 
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -117,7 +127,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Cropper Modal -->
@@ -146,150 +155,40 @@
             <hr>
         </div>
 
-        <!-- Updated Product List -->
         <div class="container">
             @foreach ($products->reverse() as $product) 
-                <div class="demo product-item" data-id="{{ $product->id }}" data-description="{{ $product->description }}" data-image="{{ asset($product->prod_img) }}">
+                <div class="demo product-item" data-id="{{ $product->id }}" data-description="{{ $product->description }}" data-image="{{ asset($product->prod_img) }}" data-link="{{ $product->link }}">
                     <div class="title-img">
                         <img src="{{ asset($product->prod_img) }}" alt="Product Image" class="product-img">
                     </div>
                     <div class="details">
                         <h4>{!! $product->description !!}</h4>
                     </div>
-                    <a href="#" class="view-demo">View Demo</a>
+                    <a href="{{ url('/demo?url=' . urlencode($product->link)) }}" class="view-demo">View Demo</a>
                     <button class="edit-btn btn btn-warning" style="display: none;">Edit</button>
                 </div>
             @endforeach
         </div>
 
         <!--PREVIEW IMAGE JS--->
-        <script>
-            function previewSelectedImage(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const previewImage = document.getElementById('previewImage');
-                        const uploadIcon = document.getElementById('uploadIcon');
-
-                        previewImage.src = e.target.result;
-                        previewImage.style.display = "block"; // Show image
-                        uploadIcon.style.display = "none"; // Hide icon
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-        </script>
-
+        <script src="{{ asset('js/PreviewImage.js') }}"></script>
         <!-- Add Cropper.js CDN -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-        
         <!--CROP IMAGE JS--->
-        <script>
-            let cropper;
-            const cropperModal = new bootstrap.Modal(document.getElementById('cropperModal'));
-            const cropperImage = document.getElementById('cropperImage');
-            const cropImageBtn = document.getElementById('cropImageBtn');
-
-            const productImage = document.getElementById('productImage'); // ADD Product Image Input
-            const previewImage = document.getElementById('previewImage'); // ADD Product Preview
-
-            const editProductImage = document.getElementById('editProductImage'); // EDIT Product Image Input
-            const editPreviewImage = document.getElementById('editPreviewImage'); // EDIT Product Preview
-
-            let currentImageInput = null; // Track which input triggered the cropper
-
-            // Handle File Selection for both ADD & EDIT
-            function handleFileSelect(event, imageInput, previewImg) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        cropperImage.src = e.target.result;
-                        cropperModal.show(); // Show modal for cropping
-
-                        // Destroy existing cropper instance if exists
-                        if (cropper) cropper.destroy();
-
-                        // Initialize Cropper
-                        document.getElementById('cropperModal').addEventListener('shown.bs.modal', function () {
-                            if (cropper) cropper.destroy(); // Destroy existing instance
-
-                            // Initialize Cropper with a larger display area
-                            cropper = new Cropper(cropperImage, {
-                                aspectRatio: 400 / 60,
-                                viewMode: 2,
-                                autoCropArea: 1,
-                                zoomable: true,  // Allow zooming
-                                scalable: true,  // Allow scaling
-                                movable: true    // Allow moving the image
-                            });
-                        });
-
-                        // Store the current input field (ADD or EDIT)
-                        currentImageInput = { imageInput, previewImg };
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-
-            // Assign event listeners to both ADD & EDIT image inputs
-            productImage.addEventListener('change', (event) => handleFileSelect(event, productImage, previewImage));
-            editProductImage.addEventListener('change', (event) => handleFileSelect(event, editProductImage, editPreviewImage));
-
-            // Crop Image & Set Preview for the correct input
-            cropImageBtn.addEventListener('click', function () {
-                const canvas = cropper.getCroppedCanvas({
-                    width: 400,
-                    height: 60
-                });
-
-                // Convert cropped image to a Blob (file format)
-                canvas.toBlob((blob) => {
-                    // Create a new file-like object
-                    const file = new File([blob], "cropped-image.png", { type: "image/png" });
-
-                    // Create a DataTransfer to replace the original file input
-                    const dataTransfer = new DataTransfer();
-                    dataTransfer.items.add(file);
-                    currentImageInput.imageInput.files = dataTransfer.files; // Assign cropped image to input field
-
-                    // Update the preview dynamically
-                    currentImageInput.previewImg.src = canvas.toDataURL();
-                    currentImageInput.previewImg.style.display = "block";
-
-                    cropperModal.hide(); // Close the cropper modal
-                });
-            });
-        </script>
-
+        <script src="{{ asset('js/CropperModal.js') }}"></script>
         <!--TEXT EDITOR--->
-        <script>
-            var quill = new Quill('#editor', {
-                theme: 'snow',
-                modules: {
-                    toolbar: [
-                        [{ 'font': [] }, { 'size': [] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'align': [] }],['clean']  
-                    ]
-                }
-            });
-
-            // Save content to textarea before form submission
-            document.querySelector("form").onsubmit = function() {
-                document.querySelector("#productDescription").value = quill.root.innerHTML;
-            };
-        </script>
-
-        <!-- JavaScript for Edit Mode -->
+        <script src="{{ asset('js/DescriptionTextEditor.js') }}"></script>
+        
+        <!--EDIT JS-->
+        <!-- <script src="{{ asset('js/Edit.js') }}"></script> -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 const editModeBtn = document.getElementById("editModeBtn");
                 const productItems = document.querySelectorAll(".product-item");
-                const editModal = new bootstrap.Modal(document.getElementById('editProductModal'));
+                const editModalEl = document.getElementById("editProductModal");
+                const editModal = new bootstrap.Modal(editModalEl);
+                const closeModalBtns = editModalEl.querySelectorAll(".btn-close, .close-modal");
 
                 editModeBtn.addEventListener("click", function () {
                     productItems.forEach(item => {
@@ -304,6 +203,7 @@
                         const productId = item.dataset.id;
                         const productDescription = item.dataset.description;
                         const productImage = item.dataset.image;
+                        const productLink = item.dataset.link;
 
                         // Set form action dynamically
                         document.getElementById("editProductForm").action = `/products/${productId}`;
@@ -311,62 +211,55 @@
                         // Set existing values
                         document.getElementById("editPreviewImage").src = productImage;
                         quillEdit.root.innerHTML = productDescription;
+                        document.getElementById("editProductLink").value = productLink;
 
                         // Show modal
                         editModal.show();
                     });
                 });
+
+                // Close modal properly and remove the backdrop
+                closeModalBtns.forEach(btn => {
+                    btn.addEventListener("click", function () {
+                        editModal.hide();
+                        removeBackdrop();
+                    });
+                });
+
+                // Hide modal when clicking outside of it
+                editModalEl.addEventListener("hidden.bs.modal", function () {
+                    removeBackdrop();
+                });
+
+                // Function to remove modal backdrop manually
+                function removeBackdrop() {
+                    let backdrop = document.querySelector(".modal-backdrop");
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                    document.body.classList.remove("modal-open");
+                    document.body.style.overflow = "auto"; // Ensure scrolling is enabled
+                }
             });
 
             // Quill Editor for Edit Modal
-            var quillEdit = new Quill('#editEditor', {
-                theme: 'snow',
+            var quillEdit = new Quill("#editEditor", {
+                theme: "snow",
                 modules: {
                     toolbar: [
-                        [{ 'font': [] }, { 'size': [] }],
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{ 'color': [] }, { 'background': [] }],
-                        [{ 'align': [] }],['clean']  
+                        [{ font: [] }, { size: [] }],
+                        ["bold", "italic", "underline", "strike"],
+                        [{ color: [] }, { background: [] }],
+                        [{ align: [] }],
+                        ["clean"]
                     ]
                 }
             });
 
             // Save content to textarea before submitting
-            document.getElementById("editProductForm").onsubmit = function() {
+            document.getElementById("editProductForm").onsubmit = function () {
                 document.getElementById("editProductDescription").value = quillEdit.root.innerHTML;
             };
         </script>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                document.querySelectorAll(".edit-product-btn").forEach(button => {
-                    button.addEventListener("click", function () {
-                        let productId = this.dataset.id;
-                        let productImage = this.dataset.image;
-                        let productDescription = this.dataset.description;
-
-                        // Populate modal fields
-                        document.getElementById("editProductId").value = productId;
-                        document.getElementById("editPreviewImage").src = "/" + productImage;
-                        document.getElementById("editProductDescription").value = productDescription;
-
-                        // Reset file input (clear previous selections)
-                        document.getElementById("editProductImage").value = "";
-                    });
-                });
-
-                // Prevent empty image field from being sent in the form
-                document.getElementById("editProductForm").addEventListener("submit", function (event) {
-                    let imageInput = document.getElementById("editProductImage");
-
-                    // If no new image is selected, remove the `name` attribute so Laravel ignores it
-                    if (imageInput.files.length === 0) {
-                        imageInput.removeAttribute("name");
-                    }
-                });
-            });
-        </script>
-
-
     </body>
 </html>

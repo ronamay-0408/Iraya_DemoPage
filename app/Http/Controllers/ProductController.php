@@ -14,6 +14,7 @@ class ProductController extends Controller
         $request->validate([
             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required|string|max:255',
+            'link' => 'required|url', // Ensure the link field is present
         ]);
 
         // Handle cropped image upload
@@ -30,15 +31,16 @@ class ProductController extends Controller
             return redirect()->route('upload.page');
         }
 
-        // Save product to the database
+        // Save product to the database, ensuring 'link' is included
         Product::create([
-            'prod_img' => $imagePath, // Store the cropped image path
+            'prod_img' => $imagePath,
             'description' => $request->description,
+            'link' => $request->link, // Ensure the link is passed
         ]);
 
-        Alert::success('Success!', 'Product added successfully.')->autoClose(3000); // SweetAlert with auto-close
+        Alert::success('Success!', 'Product added successfully.')->autoClose(3000);
 
-        return redirect()->route('admin'); // Redirect to upload.blade.php
+        return redirect()->route('admin');
     }
 
     // Function to get all products
@@ -54,13 +56,13 @@ class ProductController extends Controller
         return view('welcome', compact('products')); // Pass products to welcome.blade.php
     }
 
-    // Function to update a product
     public function update(Request $request, $id)
     {
         // Validate the request
         $request->validate([
             'productImage' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'required|string|max:255',
+            'link' => 'required|url',
         ]);
 
         // Find the product
@@ -71,18 +73,20 @@ class ProductController extends Controller
             $image = $request->file('productImage');
             $imageName = time() . '_cropped_' . $image->getClientOriginalName();
             
-            // Save cropped image to public/img folder
+            // Move image to public/img folder
             $image->move(public_path('img'), $imageName);
             
+            // Update image path in the database
             $product->prod_img = 'img/' . $imageName;
         }
 
-        // Update description
+        // Update other fields
         $product->description = $request->description;
+        $product->link = $request->link;
         $product->save();
 
         Alert::success('Success!', 'Product updated successfully.')->autoClose(3000);
-
+        
         return redirect()->route('admin');
     }
 }

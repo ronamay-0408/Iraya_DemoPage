@@ -45,3 +45,7 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/login'); // Redirect to login after logout
 })->name('logout');
+
+Route::get('/demo', function () {
+    return view('demo');
+});
