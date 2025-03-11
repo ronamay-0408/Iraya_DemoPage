@@ -58,7 +58,7 @@
                     <div class="details">
                         <h4>{!! $product->description !!}</h4>
                     </div>
-                    <a href="#" class="view-demo">View Demo</a>
+                    <a href="{{ url('/demo?url=' . urlencode($product->link)) }}" class="view-demo">View Demo</a>
                     <button class="edit-btn btn btn-warning" style="display: none;">Edit</button>
                 </div>
             @endforeach

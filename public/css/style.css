@@ -105,6 +105,7 @@ img.DA-logo2 {
 @media (max-width: 990px){
     .container{
         flex-wrap: wrap;
+        padding: 0;
     }
 
     .demo{
@@ -141,6 +142,9 @@ img.DA-logo2 {
     }
     .comingsoon-container {
         padding: 50px 90px;
+    }
+    img.product-img {
+        width: 350px;
     }
 }
 
