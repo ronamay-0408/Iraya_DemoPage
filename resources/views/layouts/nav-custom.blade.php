@@ -4,7 +4,7 @@
         <div class="container-nav">
             <a class="navbar-brand" href="#page-top"><img src="{{ asset('img/admin-system-logo.png') }}" alt=""></a>
             <div class="profile" id="profileDropdown">
-                <img src="{{ asset('img/profile.png') }}" alt="Profile">
+                <i class="fas fa-user-circle fa-2x"></i>
                 <div class="dropdown-menu" id="dropdownMenu">
                     <h4>{{ Auth::user()->name }}</h4>  
                     <hr style="margin: 0;">
