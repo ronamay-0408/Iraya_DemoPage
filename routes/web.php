@@ -6,7 +6,8 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', [ProductController::class, 'showWelcome']);
+Route::get('/', [ProductController::class, 'showWelcome'])
+    ->name('welcome');
 
 Route::get('/admin', [ProductController::class, 'index'])
     ->middleware(['auth', 'verified'])

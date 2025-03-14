@@ -1,4 +1,4 @@
-body{
+  body{
     font-family: 'Exo 2';
   }
   .container-nav{
@@ -9,6 +9,24 @@ body{
     flex-wrap: inherit;
     align-items: center;
   }
+  /* By default, the profile div comes first in the HTML. We'll set its order later. */
+  .btns {
+    order: 2; /* Change order to 2, so it appears after navbar-collapse */
+  }
+  /* The navbar-collapse comes with the default order of 0. We can keep it like that. */
+  .navbar-collapse {
+    order: 1; /* Default order, it stays before the profile */
+  }
+
+  .btns{
+    display: flex;
+    justify-content: space-between;
+    /* padding: 0px 30px; */
+    flex-wrap: inherit;
+    align-items: center;
+    gap: 30px;
+  }
+
   .navbar-brand {
     padding-top: 0rem;
     padding-bottom: 0rem;
@@ -117,6 +135,14 @@ img.DA-logo2 {
     .demo{
         width: 85%;
     }
+     /* By default, the profile div comes first in the HTML. We'll set its order later. */
+    .btns {
+      order: 1; /* Change order to 2, so it appears after navbar-collapse */
+    }
+    /* The navbar-collapse comes with the default order of 0. We can keep it like that. */
+    .navbar-collapse {
+      order: 2; /* Default order, it stays before the profile */
+    }
 }
 
 @media (max-width: 600px){
@@ -191,7 +217,7 @@ img.DA-logo2 {
   border-radius: 5px;
   overflow: hidden;
   width: 250px;
-  height: 130px;
+  height: 180px;
   z-index: 1000;
   padding: 0;
 }
@@ -361,4 +387,23 @@ img.DA-logo2 {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.back-btn a {
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  background-color: #F37029;
+}
+
+.back-btn a:hover {
+  background-color: #FCB166;
+}
+
+.back-btn a:active {
+  background-color: #F37029;
 }
